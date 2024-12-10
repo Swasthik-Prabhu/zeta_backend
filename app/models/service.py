@@ -1,17 +1,6 @@
 from pydantic import BaseModel, Field
-from bson import ObjectId
 from typing import Optional, Any
 
-
-# class PyObjectId(ObjectId):
-#     """Custom ObjectId type to handle serialization for Pydantic"""
-#     @classmethod
-#     def __get_pydantic_json_schema__(cls, core_schema, handler):
-#         # Customizing the JSON schema to properly represent ObjectId
-#         return {
-#             "type": "string",
-#             "pattern": "^[0-9a-fA-F]{24}$",
-#         }
 
 
 
