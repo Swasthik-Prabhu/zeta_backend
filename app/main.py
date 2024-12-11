@@ -1,15 +1,21 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 from app.routes import user_routes, service_routes, appointments_routes
 
 app = FastAPI()
 
-# Include routes
+# Enable CORS for localhost:3000 (your frontend URL)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Allow only from your frontend's origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
+# Include routes for users, services, and appointments
 app.include_router(user_routes.router, prefix="/users", tags=["Users"])
 app.include_router(service_routes.router, prefix="/services", tags=["Services"])
-
-
-# app.include_router(providers.router, prefix="/api/v1", tags=["Providers"])
-# app.include_router(customers.router, prefix="/api/v1", tags=["Customers"])
 app.include_router(appointments_routes.router, prefix="/api/v1", tags=["Appointments"])
 
 @app.get("/")
